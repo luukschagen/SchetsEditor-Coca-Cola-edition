@@ -42,9 +42,9 @@ namespace SchetsEditor
             
         }
 
-        public Bitmap GeefBitmap()
+        public Bitmap GeefBitmap
         {
-            return bitmap;
+            get { return bitmap; }
 
         }
         public void Teken(Graphics gr)

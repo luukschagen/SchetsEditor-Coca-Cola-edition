@@ -35,7 +35,6 @@ namespace SchetsEditor
         private void klikToolButton(object obj, EventArgs ea)
         {
             this.huidigeTool = (ISchetsTool)((RadioButton)obj).Tag;
-            Console.WriteLine(schetscontrol.Itemlijst.Count);
         }
 
         private void afsluiten(object obj, EventArgs ea)
@@ -216,7 +215,7 @@ namespace SchetsEditor
         private bool ControleSluiten(string naam)
  
         {
-            Bitmap bitmap = schetscontrol.GeefBitmap();
+            Bitmap bitmap = schetscontrol.GeefBitmap;
             Bitmap bit = new Bitmap(naam);
 
             if (bitmap.Equals(bit))
@@ -237,7 +236,7 @@ namespace SchetsEditor
 
         private void SchrijfNaarFile()
         {
-            Bitmap bitmap = schetscontrol.GeefBitmap();
+            Bitmap bitmap = schetscontrol.GeefBitmap;
             bitmap.Save(this.Text);
 
 
