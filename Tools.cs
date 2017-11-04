@@ -197,14 +197,20 @@ namespace SchetsEditor
 
         public override void MuisLos(SchetsControl s, Point p)
         {
-            try
-            { s.Itemlijst.Remove(s.Itemlijst[s.Itemlijst.Count - 1]); }
+            int x = s.Itemlijst.Count;
+            Graphics g = s.MaakBitmapGraphics();
 
-            catch{}
+            for (int y = x - 1; y >= 0; y = y - 1)
+            {
+                if (s.Itemlijst[y].Raaktpunt(p, g))
+                { 
+                    s.Itemlijst.Remove(s.Itemlijst[y]);
+                    break;
+                }
+            }
 
             s.Schets.Schoon();
             s.Invalidate();
-            Graphics g = s.MaakBitmapGraphics();
 
             foreach (SchetsItem i in s.Itemlijst)
             {
