@@ -11,12 +11,10 @@ namespace SchetsEditor
         private Color penkleur;
 
         public Color PenKleur
-        { get { return penkleur; }
-        }
+        { get { return penkleur; } }
+
         internal List<SchetsItem> Itemlijst
-        {
-            get { return itemlijst; }
-        }
+        { get { return itemlijst; } }
 
         public Schets Schets
         { get { return schets;   }
@@ -69,12 +67,9 @@ namespace SchetsEditor
             this.Invalidate();
         }
 
-        public Bitmap GeefBitmap()
-
+        public Bitmap GeefBitmap
         {
-            Bitmap b = schets.GeefBitmap();
-            return b;
-
+            get { return schets.GeefBitmap; }
         }
     }   
 }

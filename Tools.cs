@@ -45,6 +45,7 @@ namespace SchetsEditor
                 gr.DrawString   (tekst, font, kwast, 
                                               this.startpunt, StringFormat.GenericTypographic);
                 // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
+                // Voegt de text van de tool to aan de lijst met items
                 s.Itemlijst.Add(new TextItem(startpunt, kwast, c));
                 startpunt.X += (int)sz.Width;
                 s.Invalidate();
