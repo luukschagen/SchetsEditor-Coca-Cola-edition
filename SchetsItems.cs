@@ -10,18 +10,25 @@ namespace SchetsEditor
     {
         protected Point startpunt;
         protected Brush kwast;
-        //protected void Tekenitem(Graphics g);
+        public abstract void Tekenitem(Graphics g);
     }
 
     class TextItem : SchetsItem
     {
         protected Char c;
+        protected Font f;
 
-        public TextItem(Point p, Brush kleur, char letter)
+        public TextItem(Point p, Brush kleur, char letter, Font font)
         {
             startpunt = p;
             kwast = kleur;
             c = letter;
+            f = font;
+        }
+
+        public override void Tekenitem(Graphics g)
+        {
+            g.DrawString(c.ToString(), f, kwast, startpunt);
         }
     }
 
@@ -39,12 +46,20 @@ namespace SchetsEditor
 
     class RechthoekItem : TweepuntItem
     {
-        bool gevuld;
+        protected bool gevuld;
 
         public RechthoekItem(Point p1, Point p2, bool vulling, Brush kleur) : 
         base(p1, p2, kleur)
         {
             gevuld = vulling;
+        }
+
+        public override void Tekenitem(Graphics g)
+        {
+            if (gevuld)
+                g.FillRectangle(kwast, TweepuntTool.Punten2Rechthoek(startpunt, eindpunt));
+            else 
+                g.DrawRectangle(new Pen(kwast, 3), TweepuntTool.Punten2Rechthoek(startpunt, eindpunt));
         }
     }
 
@@ -53,11 +68,24 @@ namespace SchetsEditor
         public CirkelItem(Point p1, Point p2, bool vulling, Brush kleur) :
         base(p1, p2, vulling, kleur)
         {}
+
+        public override void Tekenitem(Graphics g)
+        {
+            if (gevuld)
+                g.FillEllipse(kwast, TweepuntTool.Punten2Rechthoek(startpunt, eindpunt));
+            else
+                g.DrawEllipse(new Pen(kwast, 3), TweepuntTool.Punten2Rechthoek(startpunt, eindpunt)); 
+        }
     }
 
     class LijnItem : TweepuntItem
     {
         public LijnItem(Point p1, Point p2, Brush kleur): base(p1, p2, kleur)
         {}
+
+        public override void Tekenitem(Graphics g)
+        {
+            g.DrawLine(new Pen(kwast, 3), startpunt, eindpunt);
+        }
     }
 }

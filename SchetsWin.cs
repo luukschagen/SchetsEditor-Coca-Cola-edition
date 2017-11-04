@@ -216,7 +216,7 @@ namespace SchetsEditor
         private bool ControleSluiten(string naam)
  
         {
-            Bitmap bitmap = schetscontrol.GeefBitmap();
+            Bitmap bitmap = schetscontrol.GeefBitmap;
             Bitmap bit = new Bitmap(naam);
 
             if (bitmap.Equals(bit))
@@ -237,7 +237,7 @@ namespace SchetsEditor
 
         private void SchrijfNaarFile()
         {
-            Bitmap bitmap = schetscontrol.GeefBitmap();
+            Bitmap bitmap = schetscontrol.GeefBitmap;
             bitmap.Save(this.Text);
 
 
