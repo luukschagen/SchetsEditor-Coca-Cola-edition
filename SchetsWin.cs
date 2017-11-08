@@ -20,11 +20,31 @@ namespace SchetsEditor
                                  , Assembly.GetExecutingAssembly()
                                  );
 
+        public SchetsControl Schetscontrol
+        {
+            get
+            {
+                return schetscontrol;
+            }
+
+            set
+            {
+                schetscontrol = value;
+            }
+        }
+
         private void veranderAfmeting(object o, EventArgs ea)
         {
             schetscontrol.Size = new Size ( this.ClientSize.Width  - 70
                                           , this.ClientSize.Height - 50);
             paneel.Location = new Point(64, this.ClientSize.Height - 30);
+            Graphics g = schetscontrol.MaakBitmapGraphics();
+
+            foreach (SchetsItem i in schetscontrol.Itemlijst)
+            {
+                i.Tekenitem(g);
+            }
+            schetscontrol.Invalidate();
         }
 
         private void klikToolMenu(object obj, EventArgs ea)
@@ -100,9 +120,10 @@ namespace SchetsEditor
         private void maakFileMenu()
         {   
             ToolStripMenuItem menu = new ToolStripMenuItem("File");
-            menu.MergeAction = MergeAction.MatchOnly;
+            menu.MergeAction = MergeAction.MatchOnly;  
+            menu.DropDownItems.Add("Opslaan Als Afbeelding", null, this.OpslaanAls);
+            menu.DropDownItems.Add("Opslaan Als Text", null, this.OpslaanAlsText);
             menu.DropDownItems.Add("Sluiten", null, this.afsluiten);
-            menu.DropDownItems.Add("Opslaan ALs", null, this.OpslaanAls);
             menuStrip.Items.Add(menu);
         }
 
@@ -203,7 +224,21 @@ namespace SchetsEditor
 
         }
 
-        private void Opslaan(object o, EventArgs ea)
+        private void OpslaanAlsText(object o, EventArgs ea)
+        {
+            SaveFileDialog dialoog = new SaveFileDialog();
+            dialoog.Filter = "Tekstfiles|*.txt|Alle files|*.*";
+            dialoog.Title = "Tekst Opslaan";
+
+            if (dialoog.ShowDialog() == DialogResult.OK)
+            {
+                this.Text = dialoog.FileName;
+                Opslaan.opslaan(dialoog.FileName, schetscontrol);
+            }
+
+        }
+
+        private void OpslaanBitmap(object o, EventArgs ea)
         {
             if( this.Text == "")
             OpslaanAls(o, ea);

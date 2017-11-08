@@ -44,6 +44,7 @@ namespace SchetsEditor
         }
         public void Schoon(object o, EventArgs ea)
         {   schets.Schoon();
+            itemlijst.Clear();
             this.Invalidate();
         }
         public void Roteer(object o, EventArgs ea)

@@ -46,7 +46,7 @@ namespace SchetsEditor
                                               this.startpunt, StringFormat.GenericTypographic);
                 // gr.DrawRectangle(Pens.Black, startpunt.X, startpunt.Y, sz.Width, sz.Height);
                 // Voegt de text van de tool to aan de lijst met items
-                s.Itemlijst.Add(new TextItem(startpunt, kwast, c, font));
+                s.Itemlijst.Add(new TextItem(this.startpunt, s.PenKleur, c, font));
                 startpunt.X += (int)sz.Width;
                 s.Invalidate();
             }
@@ -97,7 +97,7 @@ namespace SchetsEditor
         public override void MuisLos(SchetsControl s, Point p)
         {
             base.MuisLos(s, p);
-            s.Itemlijst.Add(new RechthoekItem(startpunt, p, false, kwast));
+            s.Itemlijst.Add(new RechthoekItem(startpunt, p, false, s.PenKleur));
         }
 
         public override void Bezig(Graphics g, Point p1, Point p2)
@@ -115,7 +115,7 @@ namespace SchetsEditor
         public override void MuisLos(SchetsControl s, Point p)
         {
             base.MuisLos(s, p);
-            s.Itemlijst.Add(new RechthoekItem(startpunt, p, true, kwast));
+            s.Itemlijst.Add(new RechthoekItem(startpunt, p, true, s.PenKleur));
         }
 
         public override void Bezig(Graphics g, Point p1, Point p2)
@@ -135,7 +135,7 @@ namespace SchetsEditor
         public override void MuisLos(SchetsControl s, Point p)
         {
             base.MuisLos(s, p);
-            s.Itemlijst.Add(new CirkelItem(startpunt, p, false, kwast));
+            s.Itemlijst.Add(new CirkelItem(startpunt, p, false, s.PenKleur));
         }
 
         public override void Bezig(Graphics g, Point p1, Point p2)
@@ -152,7 +152,7 @@ namespace SchetsEditor
         public override void MuisLos(SchetsControl s, Point p)
         {
             base.MuisLos(s, p);
-            s.Itemlijst.Add(new CirkelItem(startpunt, p, true, kwast));
+            s.Itemlijst.Add(new CirkelItem(startpunt, p, true, s.PenKleur));
         }
 
         public override void Compleet(Graphics g, Point p1, Point p2)
@@ -177,7 +177,7 @@ namespace SchetsEditor
         public override void MuisLos(SchetsControl s, Point p)
         {
             base.MuisLos(s, p);
-            s.Itemlijst.Add(new LijnItem(startpunt, p, kwast));
+            s.Itemlijst.Add(new LijnItem(startpunt, p, s.PenKleur));
         }
     }
 

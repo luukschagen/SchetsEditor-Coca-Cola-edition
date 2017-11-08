@@ -7,6 +7,7 @@ namespace SchetsEditor
     public class Schets
     {
         private Bitmap bitmap;
+        public Bitmap openbitmap;
         
         public Schets()
         {
@@ -48,6 +49,7 @@ namespace SchetsEditor
 
         }
         public void Teken(Graphics gr)
+
         {
             gr.DrawImage(bitmap, 0, 0);
         }
