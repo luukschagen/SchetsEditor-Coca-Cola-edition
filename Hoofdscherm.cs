@@ -22,7 +22,8 @@ namespace SchetsEditor
         {   ToolStripDropDownItem menu;
             menu = new ToolStripMenuItem("File");
             menu.DropDownItems.Add("Nieuw", null, this.nieuw);
-            menu.DropDownItems.Add("Open", null, this.open);
+            menu.DropDownItems.Add("Open Afbeelding", null, this.open);
+            menu.DropDownItems.Add("Open Schets", null, this.openviatekst);
             menu.DropDownItems.Add("Exit", null, this.afsluiten);
             menuStrip.Items.Add(menu);
         }
@@ -67,6 +68,32 @@ namespace SchetsEditor
                     s.MaakbitmapvanFile(bit);
                     s.Show();
                 }
+
+
+
+
+        }
+
+        private void openviatekst(object sender, EventArgs e)
+
+        {
+            OpenFileDialog dialoog = new OpenFileDialog();
+            dialoog.Title = "Schets openen";
+            dialoog.Filter = "Tekstfiles|*.txt|Alle files|*.*"; ;
+
+            if (dialoog.ShowDialog() == DialogResult.OK)
+            {
+
+                SchetsWin s = new SchetsWin();
+                s.MdiParent = this;
+                Laden.laadhet(dialoog.FileName, s.Schetscontrol);
+                Graphics g = s.Schetscontrol.MaakBitmapGraphics();
+                foreach (SchetsItem i in s.Schetscontrol.Itemlijst)
+                {
+                    i.Tekenitem(g);
+                }
+                s.Show();
+            }
 
 
 

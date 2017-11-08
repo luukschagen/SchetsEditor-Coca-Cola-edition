@@ -1,0 +1,7 @@
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\bin\Debug\Schets.exe
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\bin\Debug\Schets.pdb
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\obj\x86\Debug\10g-SchetsEditor.csprojResolveAssemblyReference.cache
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\obj\x86\Debug\SchetsEditor.Properties.Resources.resources
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\obj\x86\Debug\10g-SchetsEditor.csproj.GenerateResource.Cache
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\obj\x86\Debug\Schets.exe
+C:\Windows\Temp\SchetsEditor-Coca-Cola-edition-master\SchetsEditor-Coca-Cola-edition-master\obj\x86\Debug\Schets.pdb
