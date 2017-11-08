@@ -3,10 +3,12 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SchetsEditor
 {   public class SchetsControl : UserControl
     {   private Schets schets;
+        private List<SchetsItem> startlijst;
         private List<SchetsItem> itemlijst;
         private Color penkleur;
 
@@ -15,6 +17,9 @@ namespace SchetsEditor
 
         internal List<SchetsItem> Itemlijst
         { get { return itemlijst; } }
+
+        internal List<SchetsItem> Startlijst 
+        { get => startlijst; set => startlijst = value; }
 
         public Schets Schets
         { get { return schets;   }
@@ -72,5 +77,16 @@ namespace SchetsEditor
         {
             get { return schets.GeefBitmap; }
         }
+
+        // om te vergelijken of er wijzigingen zijn gedaan
+
+        internal void MaakStartlijst()
+        {
+            startlijst = new List<SchetsItem>();
+            foreach (SchetsItem i in Itemlijst)
+                startlijst.Add(i);
+
+        }
+
     }   
 }

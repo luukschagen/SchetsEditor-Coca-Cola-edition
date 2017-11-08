@@ -44,6 +44,7 @@ namespace SchetsEditor
         private void nieuw(object sender, EventArgs e)
         {   SchetsWin s = new SchetsWin();
             s.MdiParent = this;
+            s.Schetscontrol.MaakStartlijst();
             s.Show();
         }
         private void afsluiten(object sender, EventArgs e)
@@ -59,19 +60,17 @@ namespace SchetsEditor
             dialoog.Title = "Schets openen";
             dialoog.Filter = "Image Files(*.jpg; *.jpeg; *.bmp)|*.jpg; *.jpeg; *.bmp";
 
-                if (dialoog.ShowDialog() == DialogResult.OK)
-                {
+            if (dialoog.ShowDialog() == DialogResult.OK)
+            {
 
-                    SchetsWin s = new SchetsWin();
-                    s.MdiParent = this;
-                    Bitmap bit = new Bitmap(dialoog.FileName);
-                    s.MaakbitmapvanFile(bit);
-                    s.Show();
-                }
-
-
-
-
+                SchetsWin s = new SchetsWin();
+                s.MdiParent = this;
+                Bitmap bit = new Bitmap(dialoog.FileName);
+                s.Text = dialoog.FileName;
+                s.MaakbitmapvanFile(bit);
+                s.Schetscontrol.MaakStartlijst();
+                s.Show();
+            }
         }
 
         private void openviatekst(object sender, EventArgs e)
@@ -86,18 +85,16 @@ namespace SchetsEditor
 
                 SchetsWin s = new SchetsWin();
                 s.MdiParent = this;
+                s.Text = dialoog.FileName;
                 Laden.laadhet(dialoog.FileName, s.Schetscontrol);
                 Graphics g = s.Schetscontrol.MaakBitmapGraphics();
+                s.Schetscontrol.MaakStartlijst();
                 foreach (SchetsItem i in s.Schetscontrol.Itemlijst)
                 {
                     i.Tekenitem(g);
                 }
                 s.Show();
             }
-
-
-
-
         }
     }
 }

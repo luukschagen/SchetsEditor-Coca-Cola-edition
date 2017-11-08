@@ -33,9 +33,13 @@ namespace SchetsEditor
 
                     if (woorden[0] == "LI")
                         lijst.Add(new LijnItem(beginpunt, eindpunt, kleur));
-                    else { bool gevuld = Convert.ToBoolean(woorden[6]);
+                    
+                    else { 
+                        bool gevuld = Convert.ToBoolean(woorden[6]);
+
                         if (woorden[0] == "CI")
                             lijst.Add(new CirkelItem(beginpunt, eindpunt, gevuld, kleur));
+                        
                         else if (woorden[0] == "RI")
                             lijst.Add(new RechthoekItem(beginpunt, eindpunt, gevuld, kleur));
                         

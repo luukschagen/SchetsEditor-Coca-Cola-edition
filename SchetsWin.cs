@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Resources;
 using System.IO;
+using System.Linq;
 
 namespace SchetsEditor
 {
@@ -59,11 +60,7 @@ namespace SchetsEditor
 
         private void afsluiten(object obj, EventArgs ea)
         {
-            if (ControleSluiten(this.Text))
                 this.Close();
-            else if (!ControleSluiten(this.Text))
-                about(obj, ea);
-
         }
 
         public SchetsWin()
@@ -102,6 +99,8 @@ namespace SchetsEditor
             schetscontrol.KeyPress +=  (object o, KeyPressEventArgs kpea) => 
                                        {   huidigeTool.Letter  (schetscontrol, kpea.KeyChar); 
                                        };
+
+            this.FormClosing += Handle_FormClosing;
             this.Controls.Add(schetscontrol);
 
             menuStrip = new MenuStrip();
@@ -115,7 +114,6 @@ namespace SchetsEditor
             this.Resize += this.veranderAfmeting;
             this.veranderAfmeting(null, null);
         }
-
 
         private void maakFileMenu()
         {   
@@ -216,11 +214,14 @@ namespace SchetsEditor
             dialoog.Filter = "Image Files(*.jpg; *.jpeg; *.bmp)|*.jpg; *.jpeg; *.bmp";
             dialoog.Title = "Schets opslaan als";
 
-            if(dialoog.ShowDialog() == DialogResult.OK)
+            DialogResult result = dialoog.ShowDialog();
+
+            if (result == DialogResult.OK)
             {
                 this.Text = dialoog.FileName;
                 this.SchrijfNaarFile();
             }
+            schetscontrol.MaakStartlijst();
 
         }
 
@@ -235,6 +236,7 @@ namespace SchetsEditor
                 this.Text = dialoog.FileName;
                 Opslaan.opslaan(dialoog.FileName, schetscontrol);
             }
+            schetscontrol.MaakStartlijst();
 
         }
 
@@ -247,33 +249,16 @@ namespace SchetsEditor
 
         }
 
-        private bool ControleSluiten(string naam)
- 
-        {
-            Bitmap bitmap = schetscontrol.GeefBitmap;
-            Bitmap bit = new Bitmap(naam);
-
-            if (bitmap.Equals(bit))
-            { return true; }
-
-            else { return false; }
-          
-        }
-        private void about(object o, EventArgs ea)
-        {
-            MessageBox.Show("Weet u zek dat u door wilt gaan?"
-                           , "Schets niet opgeslagen"
-                           , MessageBoxButtons.YesNoCancel
-                           , MessageBoxIcon.Question
-                           );
-        }
-
-
         private void SchrijfNaarFile()
         {
-            Bitmap bitmap = schetscontrol.GeefBitmap;
-            bitmap.Save(this.Text);
-
+            if (this.Text.EndsWith(".txt", StringComparison.Ordinal))
+                OpslaanAlsText(null, null);
+            else
+            {
+                Bitmap bitmap = schetscontrol.GeefBitmap;
+                bitmap.Save(this.Text);
+            }
+            schetscontrol.MaakStartlijst();
 
         }
         public void MaakbitmapvanFile(Bitmap b)
@@ -281,6 +266,25 @@ namespace SchetsEditor
         {
             schetscontrol.nieuweBitmap(b);
 
+        }
+
+        // waarschuwing voor sluitend scherm
+        void Handle_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!schetscontrol.Itemlijst.SequenceEqual(schetscontrol.Startlijst))
+            {
+                DialogResult result = MessageBox.Show("Er zijn niet opgeslagen wijzigingen. " +
+                                    "Wilt u deze alsnog opslaan?", "Opslaan",
+                                                  MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Cancel)
+                    e.Cancel = true;
+
+                else if (result == DialogResult.Yes)
+                    OpslaanBitmap(null, new EventArgs());
+                    
+                
+                    
+            }
         }
     }
 }
